@@ -102,6 +102,7 @@ namespace mf_dev_backend_2026.Controllers
             if (id == null)
                 return NotFound();
 
+            // dados vai receber os dados do veiculo no banco de dados
             var dados = await _context.Veiculos.FindAsync(id);
 
             if (dados == null)
@@ -109,5 +110,42 @@ namespace mf_dev_backend_2026.Controllers
 
             return View(dados);
         }
+
+
+        //----------------------------TELA DE APAGAR------------------------------------//
+        // Pega os dados igual Details
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            // dados vai receber os dados do veiculo no banco de dados
+            var dados = await _context.Veiculos.FindAsync(id);
+
+            if (dados == null)
+                return NotFound();
+
+            return View(dados);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            // dados vai receber os dados do veiculo no banco de dados
+            var dados = await _context.Veiculos.FindAsync(id);
+
+            if (dados == null)
+                return NotFound();
+
+            //Remover o veiculo do banco de dados
+            _context.Veiculos.Remove(dados);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
     }
+
 }

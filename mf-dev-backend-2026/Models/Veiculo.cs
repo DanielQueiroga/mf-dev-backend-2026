@@ -6,6 +6,7 @@ namespace mf_dev_backend_2026.Models
     [Table("Veículos")]
     public class Veiculo
     {
+        // Dados que preencherão a tabela do Banco de dados
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage ="Obrigatório informar o nome.")]

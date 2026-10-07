@@ -20,5 +20,9 @@ namespace mf_dev_backend_2026.Models
         [Display(Name = "Ano do Modelo")]
         [Required(ErrorMessage = "Obrigatório informar o ano do modelo.")]
         public int AnoModelo { get; set; }
+
+
+        // Quando pegar os dados de um veiculo ele retorna os dados do Consumo
+        public ICollection<Consumo> Consumos { get; set; }
     }
 }

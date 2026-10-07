@@ -11,6 +11,12 @@ namespace mf_dev_backend_2026.Models
         public AppDbContext(DbContextOptions<AppDbContext>options) : base(options)
         {}
 
+        // Duas tabelas serão geradas
+        // Tabela de veículos
         public DbSet<Veiculo> Veiculos { get; set; }
+
+
+        // Tabela de Consumo
+        public DbSet<Consumo> Consumos { get; set; }
     }
 }

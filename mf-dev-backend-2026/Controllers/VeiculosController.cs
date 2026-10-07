@@ -1,6 +1,7 @@
 ﻿using mf_dev_backend_2026.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 
 namespace mf_dev_backend_2026.Controllers
 {
@@ -145,6 +146,33 @@ namespace mf_dev_backend_2026.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        //------------------------FUNÇÃO RELATORIO----------------------------------/
+
+        public async Task<IActionResult> Relatorio(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var veiculo = await _context.Veiculos.FindAsync(id);
+
+            if (veiculo == null)
+                return NotFound();
+
+            // Ordena os valores em ordem de lançamento
+            var consumos = await _context.Consumos
+                .Where(c => c.VeiculoId == id)
+                .OrderByDescending( c => c.Data)
+                .ToListAsync();
+
+            // total sera a soma de todos os valores
+            decimal total = consumos.Sum(c => c.Valor);
+
+            ViewBag.Veiculo = veiculo;
+            ViewBag.Total = total;
+
+            return View(consumos);
         }
     }
 
